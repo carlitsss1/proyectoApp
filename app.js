@@ -9,7 +9,7 @@ import { router as cuentasRoutes } from './src/routes/cuentas.routes.js';
 import { router as pagosRoutes } from './src/routes/pagos.routes.js';
 import { router as reportesRoutes } from './src/routes/reportes.routes.js';
 import usuariosRoutes from './src/routes/usuarios.routes.js';
-
+import path from 'path';
 
 dotenv.config();
 
@@ -28,5 +28,5 @@ app.use('/api/cuentas', cuentasRoutes);
 app.use('/api/pagos', pagosRoutes);
 app.use('/api/reportes', reportesRoutes);
 app.use("/api/usuarios", usuariosRoutes);
-
+app.use(express.static(path.join(__dirname, 'www')));
 export default app;
