@@ -18,13 +18,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// archivos
 app.use('/uploads', express.static('uploads'));
 
+// api
 app.use('/api/auth', authRoutes);
 app.use('/api/productos', productosRoutes);
 app.use('/api/pedidos', pedidosRoutes);
@@ -34,11 +37,12 @@ app.use('/api/pagos', pagosRoutes);
 app.use('/api/reportes', reportesRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 
+// carpeta www (ionic)
 app.use(express.static(path.join(__dirname, 'www')));
 
-app.get('/*', (req, res) => {
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
   res.sendFile(path.join(__dirname, 'www', 'index.html'));
 });
-// -----------------------------------------
 
 export default app;
