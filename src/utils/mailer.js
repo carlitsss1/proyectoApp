@@ -1,9 +1,11 @@
 import nodemailer from "nodemailer";
 
 export const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // ← Requerido por Railway
   auth: {
-    user: "cuentadecarlitos1@gmail.com",
-    pass: "uvfv umgv rtcs ezgl", 
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
